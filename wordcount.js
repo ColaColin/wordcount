@@ -6,7 +6,7 @@ function escapeRegExp(string) {
 function WordCountModel() {
     var self = this;
 
-    self.ignoreChars = ko.observable("0123456789,;+.:_-!'#„“\"§$%&/\\()?\}][{@€<>|=*^");
+    self.ignoreChars = ko.observable("‚’‘0123456789,;+.:_-!'#„“\"§$%&/\\()?\}][{@€<>|=*^");
 
     self.inputText = ko.observable("");
 

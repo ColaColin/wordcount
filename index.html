@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Lieblingswörter</title>
+        <link href="wordcount.css" rel="stylesheet" type="text/css" />
+        <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js'></script>
+        <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js'></script>
+        <script type='text/javascript' src='filesave.js'></script>
+        <script type='text/javascript' src='wordcount.js'></script>
+    </head>
+
+    <body>
+        
+        <center>
+            <div>
+                <h2>Ignorierte Zeichen</h2>
+                <input data-bind="textInput: ignoreChars" style="width: 200px" />
+            </div>
+            <div>
+                <h2>Eingabe</h2>
+                <textarea data-bind="textInput: inputText" style="width: 900px; height: 400px"></textarea>
+            </div>
+           
+            <button data-bind="click: process">Verarbeiten</button>
+
+            <div data-bind="if: toplist().length != 0">
+                <button style="margin-top: 10px" data-bind="click: saveResult">Speichern</button>
+                <div>
+                    <p>Zeichen verarbeitet: <span data-bind="text: charLength"></span></p>
+                    <p>Wörter verarbeitet: <span data-bind="text: wordLength"></span></p>
+                    <p>Einzigartige Wörter: <span data-bind="text: uniqueWords"></span></p>
+                </div>
+
+                <div style="display: inline-block">
+                    <h3>Topliste der Wörter</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Wort</th>
+                                <th>Vorkommen</th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: toplist">
+                            <tr>
+                                <td><span data-bind="text: $index() + 1"></span></td>
+                                <td><span data-bind="text: word"></span></td>
+                                <td><span data-bind="text: count"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </center>
+
+    </body>
+</html>

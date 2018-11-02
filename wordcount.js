@@ -72,10 +72,11 @@ function WordCountModel() {
     }
 
     self.saveResult = function() {
-        var txt = "Zeichen verarbeitet: " + self.charLength() + "\n";
-        txt += "Wörter verarbeitet: " + self.wordLength()+ "\n";
-        txt += "Einzigartige Wörter: " + self.uniqueWords() + "\n";
-        txt += "\n";
+        var newLine = "\r\n";
+        var txt = "Zeichen verarbeitet: " + self.charLength() + newLine;
+        txt += "Wörter verarbeitet: " + self.wordLength()+ newLine;
+        txt += "Einzigartige Wörter: " + self.uniqueWords() + newLine;
+        txt += newLine;
 
         var longestWord = 0;
         var longestNum = 0;
@@ -89,7 +90,7 @@ function WordCountModel() {
         }
 
         for (var i = 0; i < self.toplist().length; i++) {
-            txt += rightPad(self.toplist()[i].word, longestWord) + "   " + rightPad(self.toplist()[i].count, longestNum) + "   #" + (i+1) + "\n";
+            txt += rightPad(self.toplist()[i].word, longestWord) + "   " + rightPad(self.toplist()[i].count, longestNum) + "   #" + (i+1) + newLine;
         }
         saveAs(new Blob([txt], {type: "application/text"}), "export.txt");
     };

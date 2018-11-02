@@ -26,6 +26,8 @@
 
             <div data-bind="if: toplist().length != 0">
                 <button style="margin-top: 10px" data-bind="click: saveResult">Speichern</button>
+                <button style="margin-top: 10px" data-bind="click: sortByCount">Sortiere nach Vorkommen</button>
+                <button style="margin-top: 10px" data-bind="click: sortByAlpha">Sortiere nach Alphabet</button>
                 <div>
                     <p>Zeichen verarbeitet: <span data-bind="text: charLength"></span></p>
                     <p>Wörter verarbeitet: <span data-bind="text: wordLength"></span></p>

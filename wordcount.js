@@ -22,6 +22,30 @@ function WordCountModel() {
 
     self.toplist = ko.observable([]);
 
+    self.sortByAlpha = function() {
+        var result = self.toplist();
+
+        result = _.sortBy(result, function(v) {
+            return v.word;
+        });
+
+        self.toplist(result);
+    };
+
+    self.sortByCount = function() {
+        var result = self.toplist();
+
+        result = _.sortBy(result, function(v) {
+            return v.word;
+        });
+
+        result = _.sortBy(result, function(v){
+            return -v.count;
+        });
+
+        self.toplist(result);
+    };
+
     self.process = function() {
         self.toplist([]);
         self.charLength(self.inputText().length);
@@ -50,17 +74,11 @@ function WordCountModel() {
             result.push({'word': w, 'count': counts[w]});
         }
 
-        result = _.sortBy(result, function(v) {
-            return v.word;
-        });
-
-        result = _.sortBy(result, function(v){
-            return -v.count;
-        });
-
         self.uniqueWords(result.length);
 
         self.toplist(result);
+
+        self.sortByCount();
     };
 
     var rightPad = function(txt, len) {

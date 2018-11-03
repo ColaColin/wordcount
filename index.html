@@ -31,7 +31,25 @@
                 <div>
                     <p>Zeichen verarbeitet: <span data-bind="text: charLength"></span></p>
                     <p>Wörter verarbeitet: <span data-bind="text: wordLength"></span></p>
-                    <p>Einzigartige Wörter: <span data-bind="text: uniqueWords"></span></p>
+                    <p>Einzelne Wörter: <span data-bind="text: uniqueWords"></span></p>
+                </div>
+
+                <div style="display: inline-block; margin-right: 10px">
+                    <h3>Verteilung der Vorkommen</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Vorkommen</th>
+                                <th>Wörter mit Vorkommen</th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: countHistogramData">
+                            <td><span data-bind="text: $index() + 1"></span></td>
+                            <td><span data-bind="text: word"></span></td>
+                            <td><span data-bind="text: count"></span></td>
+                        </tbody>
+                    </table>
                 </div>
 
                 <div style="display: inline-block">

@@ -17,12 +17,33 @@ function WordCountModel() {
     };
 
     self.charLength = ko.observable(0);
+    self.uniqueChars = ko.observable(0);
+
     self.wordLength = ko.observable(0);
     self.uniqueWords = ko.observable(0);
 
     self.toplist = ko.observable([]);
 
     self.countHistogramData = ko.observable([]);
+
+    self.wordsDivLength = ko.computed(function() {
+        return self.uniqueWords() / self.wordLength();
+    });
+
+    self.entropyByWord = ko.computed(function() {
+        var result = 0;
+
+        for (var i = 0; i < self.toplist().length; i++) {
+            var pi = self.toplist()[i].count / self.wordLength();
+            result += pi * Math.log2(pi);
+        }
+
+        return -result;
+    });
+
+    self.entropyByWordLengthNorm = ko.computed(function() {
+        return self.entropyByWord() / Math.log2(self.wordLength());
+    });
 
     self.sortByAlpha = function() {
         var result = self.toplist();
@@ -76,6 +97,7 @@ function WordCountModel() {
     self.process = function() {
         self.toplist([]);
         self.charLength(self.inputText().length);
+
         var filteredIgnoreChars = filterIgnoreChars(self.inputText());
         var rdyForProc = filteredIgnoreChars.toLowerCase();
 
@@ -142,6 +164,8 @@ function WordCountModel() {
         var txt = "Zeichen verarbeitet: " + self.charLength() + newLine;
         txt += "Wörter verarbeitet: " + self.wordLength()+ newLine;
         txt += "Einzelne Wörter: " + self.uniqueWords() + newLine;
+        txt += "Pro Wort Entropie: " + self.entropyByWord() + newLine;
+        txt += "Relative pro Wort Entropie, 1 ist maximal: " + self.entropyByWordLengthNorm() + newLine;
         txt += newLine;
         txt += "Verteilung der Anzahlen" + newLine;
 
